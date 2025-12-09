@@ -1,0 +1,51 @@
+body {
+  margin: 0;
+  height: 100vh;
+  background: rgb(194, 188, 164);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Flying image */
+#fly {
+  position: absolute;
+  width: 500px; /* bigger image */
+  height: auto;
+  top: 50%;
+  left: -220px; /* start further offscreen since it's bigger */
+  transform: translateY(-50%);
+}
+
+/* Landing wrapper for logo */
+#landing-wrapper {
+  display: none; /* hidden until plane is gone */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  z-index: 10;
+}
+
+/* Logo pop-in */
+#landing-logo {
+  width: clamp(300px, 60vw, 700px); /* Much bigger min and max size */
+  height: auto;
+  animation: popIn 0.9s ease-out;
+  width: 150%;
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
