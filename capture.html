@@ -1,146 +1,177 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Unabomber — Capture & Outcome</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Unabomber — Capture & Outcome</title>
 
-  <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
 
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="capture.css">
-</head>
-<body>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="capture.css" />
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark custom-navbar">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">Serial Killers — Class</a>
 
-<!-- NAV -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="index.html">Serial Killers — Class</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navMain">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="index.html">Overview</a></li>
-        <li class="nav-item"><a class="nav-link" href="timeline.html">Timeline</a></li>
-        <li class="nav-item"><a class="nav-link" href="crimes.html">Crimes</a></li>
-        <li class="nav-item"><a class="nav-link" href="study.html">Study</a></li>
-        <li class="nav-item"><a class="nav-link active" href="capture.html">Capture</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mainNavbar"
+          aria-controls="mainNavbar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="container">
-    <h1>Capture & Outcome</h1>
-    <p>The investigation breakthrough, arrest, trial, imprisonment, and legacy of Theodore Kaczynski.</p>
-  </div>
-</section>
+        <div class="collapse navbar-collapse" id="mainNavbar">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="home.html">Overview</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="timeline.html">Timeline</a>
+            </li>
 
-<!-- CONTENT -->
-<main class="container content">
+            <li class="nav-item">
+              <a class="nav-link" href="study.html">Study</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="crimes.html">Crimes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="capture.html">Capture</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
-  <!-- MANIFESTO BREAK -->
-  <section class="info-card">
-    <span class="tag">1995</span>
-    <div class="card-grid">
-      <div>
-        <h2>The Manifesto Breakthrough</h2>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+        <h1>Capture & Outcome</h1>
         <p>
-          After nearly 17 years of bombings, the FBI approved publication of
-          <em>“Industrial Society and Its Future.”</em> The essay criticized modern technology
-          and framed violence as a necessary response.
-        </p>
-        <p>
-          Ted Kaczynski’s brother, David, recognized the language immediately.
-          His decision to contact authorities became the pivotal break in the case.
+          The investigation breakthrough, arrest, trial, imprisonment, and
+          legacy of Theodore Kaczynski.
         </p>
       </div>
-      <img src="david.png" alt="David Kaczynski" class="timeline-img">
-    </div>
-  </section>
+    </section>
 
-  <!-- ARREST -->
-  <section class="info-card">
-    <span class="tag">1996</span>
-    <div class="card-grid reverse">
-      <img src="arrest.png" alt="Kaczynski arrest" class="timeline-img">
-      <div>
-        <h2>Arrest in Montana</h2>
-        <p>
-          On April 3, 1996, FBI agents arrested Kaczynski at his remote cabin near Lincoln, Montana.
-          The cabin lacked electricity or plumbing and symbolized his rejection of modern society.
-        </p>
-        <p>
-          Investigators recovered bomb components, a live device, and over 40,000 handwritten pages
-          documenting his crimes and ideology.
-        </p>
-      </div>
-    </div>
-  </section>
+    <!-- CONTENT -->
+    <main class="container content">
+      <!-- MANIFESTO BREAK -->
+      <section class="info-card">
+        <span class="tag">1995</span>
+        <div class="card-grid">
+          <div>
+            <h2>The Manifesto Breakthrough</h2>
+            <p>
+              After nearly 17 years of bombings, the FBI approved publication of
+              <em>“Industrial Society and Its Future.”</em> The essay criticized
+              modern technology and framed violence as a necessary response.
+            </p>
+            <p>
+              Ted Kaczynski’s brother, David, recognized the language
+              immediately. His decision to contact authorities became the
+              pivotal break in the case.
+            </p>
+          </div>
+          <img src="david.png" alt="David Kaczynski" class="timeline-img" />
+        </div>
+      </section>
 
-  <!-- TRIAL -->
-  <section class="info-card">
-    <span class="tag">1998</span>
-    <div class="card-grid">
-      <div>
-        <h2>Trial and Sentencing</h2>
-        <p>
-          Prosecutors sought the death penalty, but Kaczynski’s mental health became a central issue.
-          He was diagnosed with paranoid schizophrenia but refused an insanity defense.
-        </p>
-        <p>
-          He pleaded guilty to multiple counts of murder and terrorism and was sentenced
-          to life in federal prison without parole.
-        </p>
-      </div>
-      <img src="trial.png" alt="Courtroom trial" class="timeline-img">
-    </div>
-  </section>
+      <!-- ARREST -->
+      <section class="info-card">
+        <span class="tag">1996</span>
+        <div class="card-grid reverse">
+          <img src="arrest.png" alt="Kaczynski arrest" class="timeline-img" />
+          <div>
+            <h2>Arrest in Montana</h2>
+            <p>
+              On April 3, 1996, FBI agents arrested Kaczynski at his remote
+              cabin near Lincoln, Montana. The cabin lacked electricity or
+              plumbing and symbolized his rejection of modern society.
+            </p>
+            <p>
+              Investigators recovered bomb components, a live device, and over
+              40,000 handwritten pages documenting his crimes and ideology.
+            </p>
+          </div>
+        </div>
+      </section>
 
-  <!-- IMPRISONMENT -->
-  <section class="info-card">
-    <span class="tag">Prison</span>
-    <div class="card-grid reverse">
-      <img src="bars.png" alt="Prison bars" class="timeline-img">
-      <div>
-        <h2>Life in Prison</h2>
-        <p>
-          Kaczynski was held at ADX Florence, a supermax facility in Colorado.
-          He spent most of his sentence in near-total isolation.
-        </p>
-        <p>
-          Despite imprisonment, he continued writing letters and essays.
-          His work is still analyzed in criminology and psychology courses.
-        </p>
-      </div>
-    </div>
-  </section>
+      <!-- TRIAL -->
+      <section class="info-card">
+        <span class="tag">1998</span>
+        <div class="card-grid">
+          <div>
+            <h2>Trial and Sentencing</h2>
+            <p>
+              Prosecutors sought the death penalty, but Kaczynski’s mental
+              health became a central issue. He was diagnosed with paranoid
+              schizophrenia but refused an insanity defense.
+            </p>
+            <p>
+              He pleaded guilty to multiple counts of murder and terrorism and
+              was sentenced to life in federal prison without parole.
+            </p>
+          </div>
+          <img src="trial.png" alt="Courtroom trial" class="timeline-img" />
+        </div>
+      </section>
 
-  <!-- DEATH -->
-  <section class="info-card">
-    <span class="tag">2023</span>
-    <div class="card-grid">
-      <div>
-        <h2>Death and Legacy</h2>
-        <p>
-          On June 10, 2023, Ted Kaczynski was found dead in his cell.
-          His death was ruled a suicide.
-        </p>
-        <p>
-          His case remains a powerful example of how extremism, untreated mental illness,
-          and isolation can culminate in long-term violence.
-        </p>
-      </div>
-      <img src="death.png" alt="Death and legacy imagery" class="timeline-img">
-    </div>
-  </section>
+      <!-- IMPRISONMENT -->
+      <section class="info-card">
+        <span class="tag">Prison</span>
+        <div class="card-grid reverse">
+          <img src="bars.png" alt="Prison bars" class="timeline-img" />
+          <div>
+            <h2>Life in Prison</h2>
+            <p>
+              Kaczynski was held at ADX Florence, a supermax facility in
+              Colorado. He spent most of his sentence in near-total isolation.
+            </p>
+            <p>
+              Despite imprisonment, he continued writing letters and essays. His
+              work is still analyzed in criminology and psychology courses.
+            </p>
+          </div>
+        </div>
+      </section>
 
-</main>
+      <!-- DEATH -->
+      <section class="info-card">
+        <span class="tag">2023</span>
+        <div class="card-grid">
+          <div>
+            <h2>Death and Legacy</h2>
+            <p>
+              On June 10, 2023, Ted Kaczynski was found dead in his cell. His
+              death was ruled a suicide.
+            </p>
+            <p>
+              His case remains a powerful example of how extremism, untreated
+              mental illness, and isolation can culminate in long-term violence.
+            </p>
+          </div>
+          <img
+            src="death.png"
+            alt="Death and legacy imagery"
+            class="timeline-img"
+          />
+        </div>
+      </section>
+    </main>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>
