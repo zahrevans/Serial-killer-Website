@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Harvard Psychological Study</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Vue -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="study.css" />
+  </head>
+
+  <body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark custom-navbar">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">Serial Killers — Class</a>
+
+        <div class="collapse navbar-collapse show">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Overview</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="timeline.html">Timeline</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link active" href="study.html">Study</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="crimes.html">Crimes</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main id="app" class="container py-5">
+      <section class="study-card">
+        <h1>Harvard Psychological Study</h1>
+        <p class="subtitle">
+          Stress, ethics, and the limits of Cold War psychology (1959–1962)
+        </p>
+
+        <!-- QUICK FACTS -->
+        <div class="info-grid">
+          <div class="info-item">
+            Participant<br /><strong>Ted Kaczynski (16–19)</strong>
+          </div>
+          <div class="info-item">
+            Researcher<br /><strong>Henry A. Murray</strong>
+          </div>
+          <div class="info-item">
+            Institution<br /><strong>Harvard University</strong>
+          </div>
+          <div class="info-item">
+            Time Spent<br /><strong>≈ 200 hours</strong>
+          </div>
+        </div>
+
+        <!-- CLICKABLE SECTIONS -->
+        <div class="interactive-section" @click="toggle('overview')">
+          <h2>Study Overview</h2>
+          <span class="chevron">{{ open.overview ? "−" : "+" }}</span>
+        </div>
+        <div v-if="open.overview" class="content">
+          <p>
+            The experiment aimed to examine how individuals respond to extreme
+            psychological stress. Subjects were deceived about the nature of the
+            study and exposed to hostile interrogation techniques.
+          </p>
+        </div>
+
+        <div class="interactive-section" @click="toggle('procedure')">
+          <h2>What Participants Experienced</h2>
+          <span class="chevron">{{ open.procedure ? "−" : "+" }}</span>
+        </div>
+        <div v-if="open.procedure" class="content">
+          <ul>
+            <li>Wrote essays describing deeply held beliefs</li>
+            <li>Beliefs were used to personally attack participants</li>
+            <li>Sessions involved bright lights and monitoring</li>
+            <li>Interrogations were intentionally degrading</li>
+          </ul>
+        </div>
+
+        <div class="interactive-section" @click="toggle('ethics')">
+          <h2>Ethical Concerns</h2>
+          <span class="chevron">{{ open.ethics ? "−" : "+" }}</span>
+        </div>
+        <div v-if="open.ethics" class="content">
+          <ul>
+            <li>No informed consent by modern standards</li>
+            <li>Participants pressured to remain</li>
+            <li>Psychological harm not adequately monitored</li>
+            <li>Would fail Institutional Review Board approval today</li>
+          </ul>
+        </div>
+        <div class="interactive-section" @click="toggle('impact')">
+          <h2>Possible Psychological Impact</h2>
+          <span class="chevron">{{ open.impact ? "−" : "+" }}</span>
+        </div>
+
+        <div v-if="open.impact" class="content">
+          <p>
+            Some psychologists and historians have suggested that the Murray
+            study may have contributed to emotional distress in Ted Kaczynski,
+            particularly due to his young age, social isolation, and the
+            prolonged nature of the interrogations. The experiment subjected
+            participants to repeated verbal humiliation, intense scrutiny, and
+            psychological pressure over several years.
+          </p>
+
+          <p>
+            Stress-based experiments such as this are now understood to
+            potentially exacerbate underlying mental health conditions. Later in
+            life, Kaczynski was diagnosed with schizophrenia, a disorder that
+            often emerges in early adulthood and can be aggravated by chronic
+            stress.
+          </p>
+
+          <!-- Nested collapsible for details -->
+          <div
+            class="interactive-subsection"
+            @click.stop="toggle('impactDetails')"
+          >
+            <h3>Additional Context</h3>
+            <span class="chevron">{{ open.impactDetails ? "−" : "+" }}</span>
+          </div>
+
+          <div v-if="open.impactDetails" class="content muted">
+            <p>
+              However, Kaczynski himself consistently rejected the idea that the
+              study had any significant influence on his later actions or
+              beliefs. In his writings and correspondence, he stated that the
+              experiment did not damage him and dismissed claims that it played
+              a role in his development as exaggerated or misleading.
+            </p>
+
+            <p>
+              Most scholars agree that no direct causal link can be established
+              between the experiment and Kaczynski’s later crimes. The study is
+              instead viewed as one of many factors present during a formative
+              period of his life, rather than a determining cause.
+            </p>
+          </div>
+        </div>
+
+        <!-- MINI TIMELINE -->
+        <div class="timeline-mini">
+          <h2>Key Moments</h2>
+          <div class="moment">1958 — Kaczynski enters Harvard at age 16</div>
+          <div class="moment">1959 — Recruited for Murray’s study</div>
+          <div class="moment">1962 — Graduates Harvard; study concludes</div>
+          <div class="moment muted">1996 — Study scrutinized after arrest</div>
+        </div>
+
+        <!-- EXPERT VIEW -->
+        <div class="quote-box" @click="toggle('expert')">
+          <strong>Expert Commentary</strong>
+          <span class="chevron">{{ open.expert ? "−" : "+" }}</span>
+        </div>
+
+        <div v-if="open.expert" class="content muted">
+          <p>
+            Psychologists emphasize that there is no direct causal link between
+            the experiment and Kaczynski’s later violence. The study is best
+            understood as one of several stressors during a vulnerable period.
+          </p>
+        </div>
+        <div class="interactive-section" @click="toggle('video')">
+          <h2>Watch: Overview of Murray Study</h2>
+          <span class="chevron">{{ open.video ? "−" : "+" }}</span>
+        </div>
+        <div v-if="open.video" class="content text-center">
+          <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/zXeak1BVh-w?si=-M7o1L5iCp7qu7ci"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </section>
+    </main>
+
+    <!-- Vue App -->
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            open: {
+              overview: true,
+              procedure: false,
+              ethics: false,
+              expert: false,
+              mkultra: false,
+              impact: false,
+              impactDetails: false,
+            },
+          };
+        },
+        methods: {
+          toggle(section) {
+            this.open[section] = !this.open[section];
+          },
+        },
+      }).mount("#app");
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

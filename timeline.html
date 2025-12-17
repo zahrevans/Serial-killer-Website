@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Timeline</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Timeline CSS -->
+    <link rel="stylesheet" href="timeline.css" />
+
+    <!-- Vue 3 -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+
+  <body>
+    <!-- NAVBAR (NO sticky-top class anymore) -->
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark custom-navbar">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="index.html">Serial Killers — Class</a>
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNavbar"
+            aria-controls="mainNavbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="mainNavbar">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="index.html">Overview</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="timeline.html">Timeline</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="study.html">Study</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="crimes.html">Crimes</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero-section">
+      <div class="overlay"></div>
+      <div class="container">
+        <h1>Early Life</h1>
+        <p>
+          A Timeline of Key Events in the Life of Ted Kaczynski until College
+        </p>
+        <p><strong>Scroll to learn more</strong></p>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <main id="app">
+      <section class="timeline container py-5">
+        <ol>
+          <li v-for="event in events" :key="event.Date">
+            <div class="item-inner d-flex gap-4 align-items-start">
+              <img
+                v-if="event.Image"
+                :src="event.Image"
+                alt="Timeline image"
+                class="timeline-img"
+              />
+
+              <div class="content">
+                <div class="time-wrapper">
+                  <time>{{ event.Date }}</time>
+                </div>
+                <div class="details">
+                  <h3>{{ event.Event }}</h3>
+                  <p>{{ event.Description }}</p>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ol>
+      </section>
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="timeline.js"></script>
+  </body>
+</html>

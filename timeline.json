@@ -1,0 +1,81 @@
+[
+  {
+    "Date": "May 22, 1942",
+    "Event": "Birth of Theodore John Kaczynski",
+    "Description": "Theodore John Kaczynski was born in Chicago, Illinois, to working-class Polish American parents Wanda Theresa Dombek and Theodore Richard Kaczynski, a sausage maker. His parents were raised Roman Catholic but later became atheists.",
+    "Image":"illinois.jpg"
+},
+
+  {
+    "Date": "1949–1952",
+    "Event": "Elementary School Years",
+    "Description": "From first through fourth grade, Kaczynski attended Sherman Elementary School in Chicago. School administrators described him as healthy and well-adjusted.",
+    "Image": "sheramn.png"
+  },
+  {
+    "Date": "1952",
+    "Event": "Move to Evergreen Park, Illinois",
+    "Description": "After the birth of his younger brother David, the Kaczynski family moved to Evergreen Park, a suburb of Chicago. Ted transferred to Evergreen Park Central Junior High School.",
+    "Image": "yungted.png"
+  },
+  {
+    "Date": "Early 1950s",
+    "Event": "High IQ and Grade Skipping",
+    "Description": "Kaczynski tested with an IQ of 167 and skipped the sixth grade. He later described this as a pivotal event that led to social isolation and bullying from older classmates."
+  },
+  {
+    "Date": "1950s",
+    "Event": "Neighborhood Observations",
+    "Description": "Neighbors described the Kaczynski family as civic-minded and devoted to their children. Ted was remembered as extremely intelligent but socially isolated."
+  },
+  {
+    "Date": "Mid-1950s",
+    "Event": "High School Enrollment",
+    "Description": "Kaczynski attended Evergreen Park Community High School, where he excelled academically and was known for his intelligence rather than his personality.",
+    "Image": "evergreen.png"
+  },
+  {
+    "Date": "High School Years",
+    "Event": "Extracurricular Activities",
+    "Description": "During high school, Kaczynski played trombone in the marching band and joined multiple clubs, including mathematics, biology, coin collecting, and German."
+  },
+  {
+    "Date": "High School Years",
+    "Event": "Interest in Mathematics",
+    "Description": "Kaczynski became intensely interested in mathematics, spending hours solving advanced problems and associating with other academically gifted students known as the 'briefcase boys.'"
+  },
+  {
+    "Date": "1957",
+    "Event": "Early Graduation",
+    "Description": "Kaczynski skipped the eleventh grade, attended summer school, and graduated from high school at age 15. He was a National Merit finalist."
+  },
+  {
+    "Date": "1958",
+    "Event": "Acceptance to Harvard University",
+    "Description": "At age 15, Kaczynski was accepted to Harvard University on scholarship and began attending at age 16. Former classmates noted he was emotionally unprepared.",
+    "Image": "harvard.png"
+  },
+  {
+    "Date": "1958–1959",
+    "Event": "First Year at Harvard",
+    "Description": "During his first year at Harvard, Kaczynski lived at 8 Prescott Street, a residence intended for younger and exceptionally gifted students."
+  },
+  {
+    "Date": "1959–1962",
+    "Event": "Later Harvard Residence",
+    "Description": "For the remainder of his undergraduate years, Kaczynski lived at Eliot House, where peers described him as intelligent but socially reserved.",
+    "Image": "elliot.png"
+  },
+  {
+    "Date": "1962",
+    "Event": "Graduation from Harvard",
+    "Description": "Kaczynski earned a Bachelor of Arts degree in mathematics from Harvard University with a GPA of 3.12."
+  },
+  {
+    "Date": "1959–1962",
+    "Event": "Participation in Psychological Study",
+    "Description": "During his second year at Harvard, Kaczynski participated in a psychological study led by Henry Murray involving intense verbal attacks on his personal beliefs. He spent approximately 200 hours in the study.",
+    "Image": "henrymurray.png"
+  
+  }
+]

@@ -1,31 +1,82 @@
-/* HERO SECTION STYLING */
+/* RESET */
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+/* BODY BACKGROUND + NAVBAR OFFSET */
+body {
+  background-color: #B2BEB5;
+  padding-top: 90px; /* SAME navbar height as timeline */
+}
+
+/* FIXED NAVBAR */
+.custom-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+
+  padding: 1.3rem 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+/* NAV TEXT */
+.custom-navbar .navbar-brand {
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.custom-navbar .nav-link {
+  font-size: 1.05rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* ACTIVE LINK */
+.navbar .nav-link.active {
+  font-weight: 600;
+  color: #ffffff !important;
+  border-bottom: 2px solid #ffffff;
+}
+
+/* HERO SECTION */
 .hero-section {
-  min-height: 60vh;
-  background: url("https://upload.wikimedia.org/wikipedia/commons/7/7a/Ted_Kaczynski.jpg")
-    center/cover no-repeat;
+  min-height: 100vh;
+  background: url("young_theodore_kaczynski.jpeg") center / cover no-repeat;
   position: relative;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: white;
+  padding: 40px;
 }
 
 .hero-section .overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7); /* dark overlay */
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
 }
 
 .hero-section .container {
   position: relative;
   z-index: 2;
+  max-width: 750px;
+  margin: auto;
 }
 
 .hero-section h1 {
+  font-size: 2.5rem;
   letter-spacing: 2px;
   text-transform: uppercase;
+  margin-bottom: 20px;
 }
 
 .hero-section p {
-  max-width: 600px;
-  margin: 0 auto;
+  max-width: 650px;
+  margin: 0 auto 15px auto;
+  font-size: 1.15rem;
+  line-height: 1.6;
 }

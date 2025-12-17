@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Unabomber — Crimes & Manifesto</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="crimes.css">
+
+  <!-- Vue 3 (light usage) -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+  <!-- NAVBAR (matching site) -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark custom-navbar">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">Serial Killers — Class</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMain">
+        <ul class="navbar-nav ms-auto">
+         <li class="nav-item">
+              <a class="nav-link" href="index.html">Overview</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="timeline.html">Timeline</a>
+            </li>
+           
+            <li class="nav-item">
+              <a class="nav-link" href="study.html">Study</a>
+            </li> 
+            <li class="nav-item">
+              <a class="nav-link active" href="crimes.html">Crimes</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main id="app" class="container-fluid main-container">
+    <div class="container py-4">
+
+      <!-- Header -->
+      <div class="page-header d-flex flex-column flex-md-row align-items-start justify-content-between gap-3">
+        <div>
+          <h1 class="mb-1">The Unabomber — Crimes & Manifesto</h1>
+          <p class="lead mb-0">Concise, interactive breakdown of major devices, dates, locations, and manifesto highlights.</p>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls d-flex gap-2 align-items-center">
+          <div class="btn-group" role="group" aria-label="filters">
+            <button type="button" :class="['btn','btn-sm', filter==='all' ? 'btn-primary' : 'btn-outline-secondary']" @click="filter='all'">All</button>
+            <button type="button" :class="['btn','btn-sm', filter==='fatal' ? 'btn-primary' : 'btn-outline-secondary']" @click="filter='fatal'">Fatal</button>
+            <button type="button" :class="['btn','btn-sm', filter==='injury' ? 'btn-primary' : 'btn-outline-secondary']" @click="filter='injury'">Injuries</button>
+            <button type="button" :class="['btn','btn-sm', filter==='notable' ? 'btn-primary' : 'btn-outline-secondary']" @click="filter='notable'">Notable</button>
+          </div>
+
+          <div class="search ms-2">
+            <input v-model="q" class="form-control form-control-sm" type="search" placeholder="Search events or locations" aria-label="Search">
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-4 gx-4">
+
+        <!-- Left / Main: cards grid -->
+        <div class="col-lg-8">
+          <div class="grid" role="list">
+            <article v-for="event in filteredEvents" :key="event.id" class="card event-card" role="listitem">
+              <div class="card-body d-flex flex-column">
+                <div class="d-flex gap-3">
+                  <img :src="event.image" alt="placeholder image" class="event-img">
+                  <div class="flex-grow-1">
+                    <div class="d-flex justify-content-between align-items-start">
+                      <div>
+                        <div class="event-date text-muted small">{{ event.date }}</div>
+                        <h5 class="card-title mb-1">{{ event.title }}</h5>
+                        <div class="event-location small text-secondary">{{ event.location }}</div>
+                      </div>
+                      <div class="text-end">
+                        <div class="badge bg-{{ event.badgeClass }}">{{ event.badge }}</div>
+                        <div class="small text-muted mt-1">{{ event.casualties }}</div>
+                      </div>
+                    </div>
+
+                    <p class="mb-2 mt-2 event-excerpt">{{ event.excerpt }}</p>
+
+                    <div class="mt-auto d-flex gap-2">
+                      <button class="btn btn-sm btn-outline-primary" @click="toggle(event.id)">
+                        {{ open[event.id] ? 'Hide details' : 'View details' }}
+                      </button>
+
+                      <button v-if="event.source" class="btn btn-sm btn-outline-secondary" @click="openSource(event)">
+                        Source
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div v-if="open[event.id]" class="event-details mt-3">
+                  <hr>
+                  <p class="mb-1"><strong>What happened:</strong> {{ event.detail }}</p>
+                  <p class="mb-1"><strong>Why selected:</strong> {{ event.reason }}</p>
+                 
+                </div>
+              </div>
+            </article>
+
+            <!-- Empty state -->
+            <div v-if="filteredEvents.length === 0" class="text-center py-5 text-muted">
+              No events match your search/filter.
+            </div>
+          </div>
+        </div>
+
+        <!-- Right / Manifesto & map -->
+        <aside class="col-lg-4">
+          <div class="sticky-panel">
+            <!-- Manifesto Highlights -->
+            <div class="card mb-3">
+              <div class="card-body">
+                <h5 class="card-title">Manifesto — Highlights</h5>
+                <p class="small text-muted mb-2">Short, objective pullouts — paste or upload the full manifesto below.</p>
+
+                <ul class="list-unstyled manifesto-list mb-2">
+                  <li>• Critique of industrial-technological society</li>
+                  <li>• Calls for dismantling large-scale technological systems</li>
+                  <li>• Argues revolution must rebuild human freedom/primitive life</li>
+                  <li>• Advocates violent and nonviolent methods; frames attacks as necessary</li>
+                </ul>
+
+                <div class="d-grid gap-2">
+                  <a class="btn btn-sm btn-primary" href="https://www.washingtonpost.com/wp-srv/national/longterm/unabomber/manifesto.text.htm" target="_blank" rel="noopener noreferrer">Read manifesto</a>
+
+                  <button class="btn btn-sm btn-outline-primary mt-2" @click="showManifestoSummary = !showManifestoSummary">
+                    {{ showManifestoSummary ? 'Hide summary' : 'Show brief summary' }}
+                  </button>
+                </div>
+
+                <div v-if="showManifestoSummary" class="manifesto-summary mt-3 small">
+                  <p><strong>Brief summary:</strong> The manifesto criticizes modern technological society, blames industrial progress for social and psychological harms, and promotes a return to smaller-scale, nature-centered communities. It rationalizes violent action as a catalyst.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick case facts -->
+            <div class="card mb-3">
+              <div class="card-body">
+                <h6 class="card-title">Case & Investigation</h6>
+                <ul class="small mb-0">
+                  <li><strong>1978</strong> — First device at Univ. of Illinois</li>
+                  <li><strong>1995</strong> — Manifesto published (The Washington Post)</li>
+                  <li><strong>1996</strong> — Arrest at Montana cabin (April 3)</li>
+                  <li><strong>1998</strong> — Guilty plea; life imprisonment</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Optional mini-map placeholder -->
+            <div class="card mb-3">
+              <div class="card-body">
+                <h6 class="card-title">Map (quick view)</h6>
+                <div class="map-placeholder text-center">
+                  <iframe class="map-iframe" src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d8507.659467698002!2d-112.66116760078717!3d46.90877737772525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNDbCsDU0JzI4LjgiTiAxMTLCsDM5JzEwLjgiVw!5e0!3m2!1sen!2sus!4v1765950389832!5m2!1sen!2sus" width="100%" height="250" style="border:0;border-radius:6px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                  <div class="small text-muted mt-1">Map: Location of Kaczynski's old cabin house in Montana.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sources / Notes -->
+            <div class="card">
+              <div class="card-body small">
+                <strong>Sources</strong>
+                <p class="mb-0 text-muted">Primary data drawn from FBI case summary .</p>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <!-- Optional modal for source (simple) -->
+  <div class="modal fade" id="sourceModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Source</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p class="small text-muted">This would link to the original source. For now it's a placeholder showing the event source URL when available.</p>
+          <pre id="sourceUrl" class="small bg-light p-2 rounded"></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+  const EVENTS = [
+    {
+      id: 'e1978-05-25',
+      date: 'May 25, 1978',
+      title: 'Package explosion — Univ. of Illinois (UIC)',
+      location: 'University of Illinois — Chicago Circle Campus',
+      casualties: '1 injured (security officer)',
+      badge: 'Initial',
+      badgeClass: 'secondary',
+      excerpt: 'The first known device — left in a parking lot and exploded when opened.',
+      detail: 'A package was found in a parking lot and later exploded when opened; this event first alerted authorities to a bomber targeting university/airline contexts.',
+      reason: 'First recorded Unabomber device; led to early investigations.',
+      image: 'uic.png',
+      imgLabel: 'Photo (placeholder): university building exterior',
+      source: ''
+    },
+    {
+      id: 'e1979-05-09',
+      date: 'May 9, 1979',
+      title: 'Package injury — Northwestern University',
+      location: 'Northwestern University',
+      casualties: '1 injured (graduate student)',
+      badge: 'Injury',
+      badgeClass: 'warning',
+      excerpt: 'Box left that looked like a present; exploded upon opening.',
+      detail: 'A graduate student was injured after opening a seemingly gift-wrapped box in a student area.',
+      reason: 'Pattern of targeting academic settings.',
+      image: 'nwu.png',
+      imgLabel: 'Photo (placeholder): campus pathway',
+      source: ''
+    },
+    {
+      id: 'e1979-11-15',
+      date: 'Nov 15, 1979',
+      title: 'Aircraft incident — American Airlines Flight 444',
+      location: 'Aboard Flight AA 444 (Chicago → Washington, D.C.)',
+      casualties: 'Smoke inhalation, no fatalities',
+      badge: 'Notable',
+      badgeClass: 'info',
+      excerpt: 'Bomb in luggage compartment filled cabin with smoke; plane landed safely.',
+      detail: 'A device packed to detonate in flight produced smoke but failed to explode as intended; passengers suffered smoke inhalation.',
+      reason: 'Marked escalation toward airline-targeted device (UNABOM meaning).',
+      image: '444.png',
+      imgLabel: 'Photo (placeholder): airplane interior/exterior',
+      source: ''
+    },
+    {
+      id: 'e1980-06-10',
+      date: 'June 10, 1980',
+      title: 'Package injury — United Airlines exec (Percy Woods)',
+      location: 'United Airlines (package delivered to executive)',
+      casualties: '1 injured',
+      badge: 'Injury',
+      badgeClass: 'warning',
+      excerpt: 'Bomb encased in a book; injured recipient.',
+      detail: 'Percy Woods was injured after opening a package containing an explosive device hidden in a book titled "Ice Brothers".',
+      reason: 'Targeting industry figures and leaders.',
+      image: 'percy.png',
+      imgLabel: 'Photo (placeholder): book on desk',
+      source: ''
+    },
+    {
+      id: 'e1982-05-05',
+      date: 'May 5, 1982',
+      title: 'Package injury — Vanderbilt Univ.',
+      location: 'Vanderbilt University',
+      casualties: '1 injured (secretary)',
+      badge: 'Injury',
+      badgeClass: 'warning',
+      excerpt: 'Bomb sent to head of computer science department injured an office worker.',
+      detail: 'A package addressed to the head of the CS department exploded when opened by a secretary in the department office.',
+      reason: 'Academic and technological targets continued.',
+      image: 'vu.png',
+      imgLabel: 'Photo (placeholder): academic office',
+      source: ''
+    },
+    {
+      id: 'e1982-07-02',
+      date: 'July 2, 1982',
+      title: 'Cory Hall explosion — UC Berkeley',
+      location: 'Cory Hall, UC Berkeley',
+      casualties: '1 injured (engineering professor)',
+      badge: 'Injury',
+      badgeClass: 'warning',
+      excerpt: 'A package bomb exploded in a public break room.',
+      detail: 'Explosive device exploded in a break room injuring a professor, part of a string of campus attacks.',
+      reason: 'Demonstrated evolving device sophistication and targeting academic centers.',
+      image: 'ucbk2.png',
+      imgLabel: 'Photo (placeholder): engineering building',
+      source: ''
+    },
+    {
+      id: 'e1985-05-15',
+      date: 'May 15, 1985',
+      title: 'Cory Hall (second attack) — UC Berkeley',
+      location: 'Cory Hall, UC Berkeley',
+      casualties: '1 injured (engineering student)',
+      badge: 'Injury',
+      badgeClass: 'warning',
+      excerpt: 'Another device detonated in Cory Hall, injuring a student.',
+      detail: 'A subsequent attack at Cory Hall injured an engineering student, illustrating persistence at specific targets.',
+      reason: 'Repeat targeting of technological/academic centers.',
+      image: 'cory.png',
+      imgLabel: 'Photo (placeholder): campus interior',
+      source: ''
+    },
+    {
+      id: 'e1985-11-15',
+      date: 'Nov 15, 1985',
+      title: 'University of Michigan — Professor & assistant injured',
+      location: 'University of Michigan',
+      casualties: '2 injured',
+      badge: 'Injury',
+      badgeClass: 'warning',
+      excerpt: 'A three-ring binder contained an explosive device, injuring a professor and his assistant.',
+      detail: 'Binder-type device sent with a deceptive request led to injuries when opened.',
+      reason: 'Use of disguised containers to bypass attention.',
+      image: 'umi.png',
+      imgLabel: 'Photo (placeholder): binder/office desk',
+      source: ''
+    },
+    {
+      id: 'e1985-12-11',
+      date: 'Dec 11, 1985',
+      title: 'Sacramento computer store owner killed',
+      location: 'Sacramento, CA (computer store)',
+      casualties: '1 killed (store owner)',
+      badge: 'Fatal',
+      badgeClass: 'danger',
+      excerpt: 'A package bomb killed the shop owner when opened in the parking lot.',
+      detail: 'Device left at computer store; the owner Hugh Scrutton was killed after interacting with the package.',
+      reason: 'Marked the campaign’s first recorded fatality.',
+      image: 'husc.png',
+      imgLabel: 'Photo (placeholder): storefront exterior',
+      source: ''
+    },
+    {
+      id: 'e1987-02-20',
+      date: 'Feb 20, 1987',
+      title: 'Salt Lake City computer store — severe injury',
+      location: 'Salt Lake City, UT (computer store)',
+      casualties: '1 severely injured (son of owner)',
+      badge: 'Injury',
+      badgeClass: 'warning',
+      excerpt: 'A bomb left in a parking lot seriously injured the store owner’s son; eyewitness led to sketch.',
+      detail: 'This event produced a key eyewitness account that aided investigators in creating a composite sketch of the suspect.',
+      reason: 'Provided important investigative lead (sketch).',
+      image: 'slc.png',
+      imgLabel: 'Photo (placeholder): parking lot scene',
+      source: ''
+    },
+    {
+      id: 'e1993-06-22',
+      date: 'June 22, 1993',
+      title: 'Genetics researcher injured — UC',
+      location: 'University of California',
+      casualties: '1 injured',
+      badge: 'Injury',
+      badgeClass: 'warning',
+      excerpt: 'A mailed bomb injured a geneticist at their home after detonation in the kitchen.',
+      detail: 'Package detonated in the researcher’s kitchen; demonstrated reach from campus to personal residences.',
+      reason: 'Expansion of target scope to personal addresses.',
+      image: 'chep.png',
+      imgLabel: 'Photo (placeholder): suburban house kitchen',
+      source: ''
+    },
+    {
+      id: 'e1993-06-24',
+      date: 'June 24, 1993',
+      title: 'Yale computer scientist — lost fingers',
+      location: 'Yale University (home address)',
+      casualties: '1 injured (lost fingers)',
+      badge: 'Injury',
+      badgeClass: 'warning',
+      excerpt: 'Mailed bomb cost a prominent computer scientist several fingers.',
+      detail: 'Device mailed to a Yale professor caused severe injury and loss of digits.',
+      reason: 'High-profile academic target with severe personal injury.',
+      image: 'dvd.png',
+      imgLabel: 'Photo (placeholder): academic portrait/office',
+      source: ''
+    },
+    {
+      id: 'e1994-12-19',
+      date: 'Dec 19, 1994',
+      title: 'New Jersey — advertising executive killed',
+      location: 'New Jersey (home)',
+      casualties: '1 killed (advertising executive)',
+      badge: 'Fatal',
+      badgeClass: 'danger',
+      excerpt: 'A package bomb mailed to an advertising executive killed him at his home.',
+      detail: 'Mail-bombing of a private residence resulting in death—one of several late-stage killings.',
+      reason: 'Escalation in lethality and targeting of civilians.',
+      image: 'njad.png',
+      imgLabel: 'Photo (placeholder): suburban home exterior',
+      source: ''
+    },
+    {
+      id: 'e1995-04-24',
+      date: 'Apr 24, 1995',
+      title: 'Sacramento — president of California Forestry Association killed',
+      location: 'Sacramento, CA (office)',
+      casualties: '1 killed (president)',
+      badge: 'Fatal',
+      badgeClass: 'danger',
+      excerpt: 'Mail-bomb killed a forestry association president in his office.',
+      detail: 'A mailed explosive device killed a prominent industry figure, prompting renewed public attention and pressure.',
+      reason: 'One of the final deadly attacks before capture.',
+      image: 'sacr.png',
+      imgLabel: 'Photo (placeholder): office entrance',
+      source: ''
+    },
+    // Case resolution entries
+    {
+      id: 'e1995-manifesto',
+      date: '1995',
+      title: 'Manifesto published (35,000 words)',
+      location: 'Published in The Washington Post (by agreement)',
+      casualties: 'N/A',
+      badge: 'Key',
+      badgeClass: 'dark',
+      excerpt: 'The Unabomber offered a long essay explaining motives; publication led to tips identifying Kaczynski.',
+      detail: 'The manifesto set out an anti-technology, anti-industrial critique and was published to solicit public help identifying the author. Linguistic matches aided identification.',
+      reason: 'Critical investigative turning point (led to suspect identification).',
+      image: 'uman.png',
+      imgLabel: 'Photo (placeholder): newspaper spread',
+      source: ''
+    },
+    {
+      id: 'e1996-04-03',
+      date: 'Apr 3, 1996',
+      title: 'Arrest & cabin search — Lincoln, Montana',
+      location: 'Cabin near Lincoln, Montana',
+      casualties: 'N/A (arrest)',
+      badge: 'Resolution',
+      badgeClass: 'success',
+      excerpt: 'Kaczynski arrested; cabin yielded bomb-making materials, journals, and a live device.',
+      detail: 'Search of the cabin produced bomb components, thousands of pages of notes and plans, and one live bomb. Evidence linked Kaczynski conclusively to the attacks.',
+      reason: 'Case closed; arrest and evidence seizure.',
+      image: 'uarr.png',
+      imgLabel: 'Photo (placeholder): remote cabin exterior',
+      source: ''
+    }
+  ];
+
+  // Boot Vue app
+  const { createApp } = Vue;
+
+  createApp({
+    data() {
+      // prepare open map
+      const openObj = {};
+      EVENTS.forEach(e => openObj[e.id] = false);
+      return {
+        events: EVENTS,
+        open: openObj,
+        filter: 'all',
+        q: '',
+        manifestoName: '',
+        showManifestoSummary: false
+      };
+    },
+    computed: {
+      filteredEvents() {
+        const q = this.q.trim().toLowerCase();
+        return this.events.filter(e => {
+          // filter by type
+          if (this.filter === 'fatal' && e.badge !== 'Fatal') return false;
+          if (this.filter === 'injury' && e.badge !== 'Injury') return false;
+          if (this.filter === 'notable' && e.badge !== 'Notable' && e.badge !== 'Key' && e.badge !== 'Resolution') return false;
+          // search
+          if (!q) return true;
+          return (e.title + ' ' + e.location + ' ' + e.excerpt).toLowerCase().includes(q);
+        });
+      }
+    },
+    methods: {
+      toggle(id) {
+        this.open[id] = !this.open[id];
+        // close others for clarity (optional): comment out if you want multiple open
+        // Object.keys(this.open).forEach(k => { if (k !== id) this.open[k] = false; });
+      },
+      manifestoPicked(event) {
+        const f = event.target.files && event.target.files[0];
+        if (f) {
+          this.manifestoName = f.name;
+        } else {
+          this.manifestoName = '';
+        }
+      },
+      openSource(event) {
+        const url = event.source || 'No external link available for this entry.';
+        document.getElementById('sourceUrl').textContent = url;
+        const modal = new bootstrap.Modal(document.getElementById('sourceModal'));
+        modal.show();
+      },
+      focusOnMap(event) {
+        // small UX: highlight the map placeholder briefly
+        const img = document.querySelector('.map-placeholder img');
+        if (!img) return;
+        img.classList.add('pulse');
+        setTimeout(() => img.classList.remove('pulse'), 900);
+      }
+    }
+  }).mount('#app');
+
+  </script>
+
+  <!-- Bootstrap JS bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
